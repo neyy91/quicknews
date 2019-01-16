@@ -12,7 +12,7 @@
         <h2>Edit</h2>
        
         <div>
-            <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+            <a href="{{ route('main')}}" class="btn btn-primary">Back</a>
         </div>
     </body>
 </html>

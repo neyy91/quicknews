@@ -16,12 +16,16 @@ class IndexController extends Controller
     }
 
     public function filterByCategory(Request $request) {
+       
         $cat_id = $request->cat_id;
-        
+        if ($cat_id == 'no filter' || !$cat_id){
+            return redirect('/');
+        }
         $categorys = DB::table('bullets')->pluck('category')->unique();
         $bullets = DB::table('bullets')->where('category',$cat_id)->get();
 
         return view('layouts.main',['bullets' => $bullets, 'categorys'=> $categorys]);
+        // return ['bullets' => $bullets, 'categorys'=> $categorys];
     }
 
     public function redirectToBullet($id)

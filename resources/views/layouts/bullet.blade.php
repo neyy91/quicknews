@@ -12,7 +12,7 @@
         <h2>Title: {{$bullet->title}}</h2>
         <span>{{$bullet->text}}</span>
         <div>
-            <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+        <a href="{{ route('main')}}" class="btn btn-primary">Back</a>
         </div>
     </body>
 </html>

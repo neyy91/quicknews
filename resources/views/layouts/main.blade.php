@@ -12,21 +12,23 @@
     </head>
     <body>
 
-
-    @if($categorys != null && count($categorys) > 0)
-    <div class="form-group">
-        <label> Select filter</label>
-        <select class="form-control" id="catID">
-        <option>no filter</option>
-        @foreach ($categorys as $category)
-            <option value="{{ $category }}">{{ $category }}</option>
-        @endforeach
-        </select>
-    </div>
-    @endif
-    <button id="findBtn" class="btn btn-info" >Filter by</button>
-
-    <a href="{{ route('manager') }}"><button type="submit" class="btn btn-success">Manage news</button></a>
+    <form  method="GET" action="{{route('productsCat')}}">
+        @if($categorys != null && count($categorys) > 0)
+        <div class="form-group">
+            <label> Select filter</label>
+            <select class="form-control" name="cat_id" id="catID">
+            <option>no filter</option>
+            @foreach ($categorys as $category)
+                <option value="{{ $category }}">{{ $category }}</option>
+            @endforeach
+            </select>
+        </div>
+    
+        @endif
+        <button id="findBtn" type="submit" class="btn btn-info" >Filter by</button>
+        <a href="{{ route('manager') }}" class="btn btn-success">Manage news</a>
+    </form>
+    
 
     <table class="table table-hover" id="table_data">
         <thead>
@@ -60,27 +62,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script>
-
-$(document).ready( function () {
-  $('#findBtn').click(function(){
-    var cat = $("#catID").val();
-  //  alert(cat)
-    $.ajax({
-        type: 'get',
-        dataType: 'html',
-        url: "{{route('productsCat')}}",
-        data: 'cat_id='+cat,
-        success:function(data){
-           // console.log("-----OK-----",response);
-            //$("#productData").html(response)
-           // console.log("-----OK-----",$('tbody').html(data.table_data));
-            $('tbody').html(data.table_data);
-            $('#total_records').text(data.total_data);
-        }
-    })
-    });
-  
-} );
 
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

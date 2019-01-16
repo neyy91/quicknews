@@ -12,39 +12,24 @@
         <h2>Add bullet</h2>
        
         <div>
-            <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+            <a href="{{ route('main')}}" class="btn btn-primary">Back</a>
         </div>
-
-
-
 
         <form class="" method="POST" action="/register_user">
                     {!! csrf_field() !!}
 
-        
+            <input class="modal-enter-input modal-reg-input" 
+                type="text" id="email" name="title"  placeholder="Title">
+                        
+            <input class="modal-enter-input modal-reg-input rigth" 
+                type="text" name="text" id="subj" placeholder="Subject news">
+            
+                        
+            <input class="modal-enter-input modal-reg-input" 
+                type="text" name="category" id="category" placeholder="Category" maxlength="10">
+          
+        </form>
+        <a href="{{ route('addBullet') }}"><button type="submit" class="btn btn-success">Add</button></a>
 
-        <input class="modal-enter-input modal-reg-input" 
-            type="text" id="email" name="title"  placeholder="Title">
-                    
-        <input class="modal-enter-input modal-reg-input rigth" 
-            type="text" name="text" id="subj" placeholder="Subject news">
-        
-                    
-        <input class="modal-enter-input modal-reg-input" 
-            type="text" name="category" id="category" placeholder="Category">
-
-   
-                    
-    </form>
-    <a href="{{ route('addBullet') }}"><button type="submit" class="btn btn-success">Add</button></a>
-
-
-
-
-
-
-
-
-        
     </body>
 </html>

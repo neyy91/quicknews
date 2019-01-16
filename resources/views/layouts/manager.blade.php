@@ -13,7 +13,7 @@
     <body>
     <h2>Manager</h2>
     <div>
-        <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+        <a href="{{ route('main')}}" class="btn btn-primary">Back</a>
         <a href="{{ route('addBullet') }}"><button type="submit" class="btn btn-success">Add</button></a>
     </div>
 
