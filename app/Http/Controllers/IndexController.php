@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function index(Request $request) {
         $bullets = Bullet::all();
        
-        $categorys = DB::table('bullets')->pluck('category')->unique();
+        $categorys = Bullet::pluck('category')->unique();
         return view('layouts.main',['bullets' => $bullets, 'categorys'=> $categorys]);
     }
 
@@ -21,11 +21,10 @@ class IndexController extends Controller
         if ($cat_id == 'no filter' || !$cat_id){
             return redirect('/');
         }
-        $categorys = DB::table('bullets')->pluck('category')->unique();
-        $bullets = DB::table('bullets')->where('category',$cat_id)->get();
+        $categorys = Bullet::pluck('category')->unique();
+        $bullets = Bullet::where('category',$cat_id)->get();
 
         return view('layouts.main',['bullets' => $bullets, 'categorys'=> $categorys]);
-        // return ['bullets' => $bullets, 'categorys'=> $categorys];
     }
 
     public function redirectToBullet($id)
@@ -40,24 +39,40 @@ class IndexController extends Controller
 
     public function manager(Request $request) {
         $bullets = Bullet::all();
-        $categorys = DB::table('bullets')->pluck('category')->unique();
+        $categorys = Bullet::pluck('category')->unique();
         return view('layouts.manager',['bullets' => $bullets, 'categorys'=> $categorys]);
     }
 
-    public function addBullet() {
+    public function addBullet(Request $request) {
 
         if (view()->exists('layouts.add')) {
+            if ($request->title && $request->text && $request->category) {
+
+                $bullet = new Bullet;
+                $bullet->title = $request->title;
+                $bullet->text = $request->text;
+                $bullet->category = $request->category;
+                $bullet->save();
+
+                return redirect('/');
+            }
           
             return view('layouts.add');
         }
         abort(404);
     }
 
-    
-
-    public function editBullet($id) {
+    public function editBullet(Request $request,$id) {
         if(!$id) {
             abort(404);
+        }
+        if ($request->title && $request->text && $request->category) {
+            $bullet = Bullet::findOrFail($id);
+            $bullet->title = $request->title;
+            $bullet->text = $request->text;
+            $bullet->category = $request->category;
+            $bullet->save();
+            return redirect('/manager');
         }
         if (view()->exists('layouts.edit')) {
             $bullet = Bullet::findOrFail($id);
@@ -66,14 +81,13 @@ class IndexController extends Controller
         abort(404);
     }
 
-    public function delete($id) {
-        if(!$id) {
-            abort(404);
+    public function delete(Request $request,$id) {
+
+        if ($request->isMethod('get') && $id) {
+            $bullet = Bullet::findOrFail($id)->delete();
+            return redirect('/manager');
         }
-        if (view()->exists('layouts.delete')) {
-            $bullet = Bullet::findOrFail($id);
-            return view('layouts.delete',['bullet'=>$bullet]);
-        }
+
         abort(404);
     }
 

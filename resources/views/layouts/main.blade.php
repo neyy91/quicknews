@@ -5,14 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
       rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 
         <title>Laravel</title>
 
     </head>
     <body>
-
+    <h2>Main</h2>
     <form  method="GET" action="{{route('productsCat')}}">
+    {!! csrf_field() !!}
         @if($categorys != null && count($categorys) > 0)
         <div class="form-group">
             <label> Select filter</label>
@@ -33,7 +33,7 @@
     <table class="table table-hover" id="table_data">
         <thead>
         <tr>
-        <th>#</th>
+        <th>#id</th>
         <th>Title</th>
         <th>Text</th>
         <th>Сategory</th>
@@ -56,15 +56,9 @@
                 <td>{{ $bullet->updated_at }}</td>
             </tr>
         @endforeach
-  </tbody>
-</table>
+    </tbody>
+    </table>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script>
-
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </body>
 </html>
 

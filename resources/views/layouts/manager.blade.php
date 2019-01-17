@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
       rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
 
         <title>Laravel</title>
 
@@ -22,7 +21,7 @@
     <table class="table table-hover" id="table_data">
         <thead>
         <tr>
-        <th>#</th>
+        <th>#id</th>
         <th>Title</th>
         <th>Text</th>
         <th>Сategory</th>
@@ -45,8 +44,11 @@
                 <td>{{ $bullet->created_at }}</td>
                 <td>{{ $bullet->updated_at }}</td>
                 <td>
-                <a href="{{ route('edit', ['id' => $bullet->id]) }}"><button type="submit" class="btn btn-warning">Edit</button></a>
-                <a href="{{ route('delete', ['id' => $bullet->id]) }}"><button type="submit" class="btn btn-danger">Delete</button></a>
+                    <form method="DELETE" action="{{ route('delete', ['id' => $bullet->id])}}">
+                        {{method_field('DELETE')}}
+                        <a href="{{ route('edit', ['edit_id' => $bullet->id]) }}" class="btn btn-warning">Edit</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
